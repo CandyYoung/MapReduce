@@ -22,6 +22,9 @@ public class MaxTemperature {
         job.setJarByClass(MaxTemperature.class);
         job.setJobName("Max Temperature");
 
+        String maxSlitSize = job.getConfiguration().get(FileInputFormat.SPLIT_MAXSIZE);
+        String minSplitSize = job.getConfiguration().get(FileInputFormat.SPLIT_MINSIZE);
+        System.err.println("Debug: maxSlitSize:" + maxSlitSize + " minSplitSize:" + minSplitSize);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
@@ -32,7 +35,6 @@ public class MaxTemperature {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
-        JobClient.runJob(new JobConf(MaxTemperature.class));
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
