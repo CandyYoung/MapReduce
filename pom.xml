@@ -12,6 +12,7 @@
     <module>common-library</module>
     <module>check-data</module>
     <module>max-temperature</module>
+      <module>db-demo</module>
   </modules>
 
   <name>mapreduce</name>

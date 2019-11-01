@@ -2,6 +2,8 @@ package com.zhanghq.bean;
 
 import com.zhanghq.utils.StringUtils;
 
+import java.util.Objects;
+
 public class NcdcWeather {
     private String USAF_station_id;
     private String WBAN_station_id;
@@ -201,6 +203,37 @@ public class NcdcWeather {
 
     public void setAtmospheric_pressure_quality_code(String atmospheric_pressure_quality_code) {
         this.atmospheric_pressure_quality_code = atmospheric_pressure_quality_code;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NcdcWeather that = (NcdcWeather) o;
+        return Objects.equals(USAF_station_id, that.USAF_station_id) &&
+                Objects.equals(WBAN_station_id, that.WBAN_station_id) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(time, that.time) &&
+                Objects.equals(latitude, that.latitude) &&
+                Objects.equals(longitude, that.longitude) &&
+                Objects.equals(elevation, that.elevation) &&
+                Objects.equals(wind_direction, that.wind_direction) &&
+                Objects.equals(wind_direction_quality_code, that.wind_direction_quality_code) &&
+                Objects.equals(sky_ceiling_height, that.sky_ceiling_height) &&
+                Objects.equals(sky_ceiling_height_quality_code, that.sky_ceiling_height_quality_code) &&
+                Objects.equals(visibility_distance, that.visibility_distance) &&
+                Objects.equals(visibility_distance_quality_code, that.visibility_distance_quality_code) &&
+                Objects.equals(air_temperature, that.air_temperature) &&
+                Objects.equals(air_temperature_quality_code, that.air_temperature_quality_code) &&
+                Objects.equals(dew_point_temperature, that.dew_point_temperature) &&
+                Objects.equals(dew_point_temperature_quality_code, that.dew_point_temperature_quality_code) &&
+                Objects.equals(atmospheric_pressure, that.atmospheric_pressure) &&
+                Objects.equals(atmospheric_pressure_quality_code, that.atmospheric_pressure_quality_code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(USAF_station_id, WBAN_station_id, date, time, latitude, longitude, elevation, wind_direction, wind_direction_quality_code, sky_ceiling_height, sky_ceiling_height_quality_code, visibility_distance, visibility_distance_quality_code, air_temperature, air_temperature_quality_code, dew_point_temperature, dew_point_temperature_quality_code, atmospheric_pressure, atmospheric_pressure_quality_code);
     }
 
     @Override
