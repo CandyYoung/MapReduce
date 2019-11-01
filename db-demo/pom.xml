@@ -42,7 +42,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.zhanghq.MaxTemperature</mainClass>
+                            <mainClass>com.zhanghq.DbDemoRunner</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

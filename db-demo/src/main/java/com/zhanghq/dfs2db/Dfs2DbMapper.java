@@ -9,7 +9,7 @@ import org.apache.http.util.TextUtils;
 
 import java.io.IOException;
 
-public class Db2DfsMapper extends Mapper<LongWritable, Text, WeatherDbBean, Object> {
+public class Dfs2DbMapper extends Mapper<LongWritable, Text, WeatherDbBean, Object> {
 
     enum Temperature {
         BELOW_ZERO,
