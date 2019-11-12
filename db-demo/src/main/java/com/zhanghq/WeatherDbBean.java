@@ -2,7 +2,7 @@ package com.zhanghq;
 
 import com.zhanghq.bean.NcdcWeather;
 import org.apache.hadoop.io.Writable;
-import org.apache.hadoop.mapred.lib.db.DBWritable;
+import org.apache.hadoop.mapreduce.lib.db.DBWritable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -16,6 +16,10 @@ public class WeatherDbBean implements DBWritable, Writable {
 
     public WeatherDbBean(NcdcWeather ncdcWeather) {
         this.ncdcWeather = ncdcWeather;
+    }
+
+    public NcdcWeather getNcdcWeather() {
+        return ncdcWeather;
     }
 
     @Override

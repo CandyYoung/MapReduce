@@ -13,7 +13,7 @@
 
     <build>
         <plugins>
-            <!-- 将项目的依赖包复制到 target/lib -->
+            <!-- copy the dependency jar of project into target/lib -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
