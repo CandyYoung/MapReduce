@@ -8,6 +8,7 @@ import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.filecache.DistributedCache;
 import org.apache.hadoop.mapreduce.lib.db.DBConfiguration;
 import org.apache.hadoop.mapreduce.lib.db.DBInputFormat;
 import org.apache.hadoop.mapreduce.lib.db.DBOutputFormat;
@@ -24,7 +25,7 @@ public class DbDemoRunner extends Configured implements Tool {
         Configuration conf = new Configuration();
 
         // 配置MySQL登入参数
-        conf.set(DBConfiguration.DRIVER_CLASS_PROPERTY, "com.mysql.jdbc.Driver");
+        conf.set(DBConfiguration.DRIVER_CLASS_PROPERTY, "com.mysql.cj.jdbc.Driver");
         conf.set(DBConfiguration.URL_PROPERTY, "jdbc:mysql://master:3306/ncdc");
         conf.set(DBConfiguration.USERNAME_PROPERTY, "root");
         conf.set(DBConfiguration.PASSWORD_PROPERTY, "123456");
@@ -33,7 +34,7 @@ public class DbDemoRunner extends Configured implements Tool {
         job.setJarByClass(DbDemoRunner.class);
 
         // 把MySQL连接驱动jar包加入到ClassPath
-        job.addArchiveToClassPath(new Path("hdfs://master:9000/lib/mysql/mysql-connector-java-8.0.18.jar"));
+        job.addFileToClassPath(new Path("hdfs://master:9000/lib/mysql/mysql-connector-java-8.0.18.jar"));
 
         if ("1".equals(strings[1])) {
             job.setJobName("Dump dfs file content into mysql");
@@ -53,6 +54,12 @@ public class DbDemoRunner extends Configured implements Tool {
                     "air_temperature","air_temperature_quality_code","dew_point_temperature","dew_point_temperature_quality_code",
                     "atmospheric_pressure","atmospheric_pressure_quality_code");
         } else if ("2".equals(strings[1])) {
+            Path[] paths = job.getArchiveClassPaths();
+            if (paths != null) {
+                for (int i = 0; i < paths.length; i++) {
+                    System.out.println("ArchiveClassPath: " + paths[i].toString());
+                }
+            }
 
             job.setJobName("Dump mysql table into hdfs file");
             job.setInputFormatClass(DBInputFormat.class);
@@ -79,7 +86,7 @@ public class DbDemoRunner extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
+        if (args.length < 2) {
             System.err.println("Usage: DbDemoRunner <dfs file path> <work mode, 1 means dfs2db 2 means db2dfs>");
             System.exit(-1);
         }

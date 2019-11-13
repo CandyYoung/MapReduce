@@ -9,7 +9,7 @@ import org.apache.http.util.TextUtils;
 
 import java.io.IOException;
 
-public class Dfs2DbReducer extends Reducer<LongWritable, Text, WeatherDbBean, Object> {
+public class Dfs2DbReducer extends Reducer<Text, Text, WeatherDbBean, Object> {
 
     enum Temperature {
         BELOW_MINUS_FIFTEEN,
@@ -24,7 +24,7 @@ public class Dfs2DbReducer extends Reducer<LongWritable, Text, WeatherDbBean, Ob
     }
 
     @Override
-    protected void reduce(LongWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         while (values.iterator().hasNext()) {
             String line = values.iterator().next().toString();
             NcdcWeather ncdcWeather = new NcdcWeather(line);
